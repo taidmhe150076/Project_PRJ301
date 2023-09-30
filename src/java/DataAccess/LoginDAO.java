@@ -39,4 +39,25 @@ public class LoginDAO extends DBContext
         }
         return null;
     }
+    
+    public boolean isAdmin(String user,String pass, String role)
+    {
+        try {
+            String sql = "SELECT Username,Password,Role FROM Login \n" +
+                    "WHERE Username = ? AND Password = ? AND Role = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, user);
+            stm.setString(2, pass);
+            stm.setString(3, role);
+            ResultSet rs = stm.executeQuery();
+            if(rs != null)
+            {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
 }

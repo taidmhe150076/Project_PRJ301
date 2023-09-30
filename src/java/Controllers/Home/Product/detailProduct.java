@@ -2,22 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.AccountController;
+package Controllers.Home.Product;
 
-import DataAccess.LoginDAO;
-import Models.Account;
+import DataAccess.ProductDAO;
+import Models.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
  * @author taisk
  */
-public class LoginController extends HttpServlet {
+public class detailProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +39,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
+            out.println("<title>Servlet detailProduct</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet detailProduct at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +60,18 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/account/login.jsp").forward(request, response);
+        String productId = request.getParameter("productid");
+        ProductDAO productdao = new ProductDAO();
+        Product product = null;
+        if (productId != null) {
+            try {
+                product = productdao.getProductById(Integer.parseInt(productId));
+            } catch (Exception ex) {
+                Logger.getLogger(detailProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("product", product);
+            request.getRequestDispatcher("view/products/detailProduct.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -71,17 +85,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userName = request.getParameter("Username");
-        String passWord = request.getParameter("Password");
-        LoginDAO dao = new LoginDAO();
-        Account account = dao.getByUsernamePassword(userName, passWord);
-        
-        if (account != null) {
-            request.getRequestDispatcher("index.html").forward(request, response);
-        }else{
-            response.sendRedirect("view/account/login.jsp");
-        }
-
+        processRequest(request, response);
     }
 
     /**

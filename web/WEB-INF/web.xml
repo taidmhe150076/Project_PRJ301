@@ -1,12 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+   <welcome-file-list>
+        <welcome-file>indexController</welcome-file> <!-- URL pattern của servlet cụ thể -->
+    </welcome-file-list>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.AccountController.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>indexController</servlet-name>
+        <servlet-class>Controllers.Home.indexController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>detailProduct</servlet-name>
+        <servlet-class>Controllers.Home.Product.detailProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>Controllers.Home.Cart.Cart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCart</servlet-name>
+        <servlet-class>Controllers.Home.Cart.DeleteCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCart</servlet-name>
+        <servlet-class>Controllers.Home.Cart.UpdateCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>indexController</servlet-name>
+        <url-pattern>/indexController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>detailProduct</servlet-name>
+        <url-pattern>/detailProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCart</servlet-name>
+        <url-pattern>/DeleteCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCart</servlet-name>
+        <url-pattern>/UpdateCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
