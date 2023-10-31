@@ -148,36 +148,7 @@
                                     <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                                 </div>
                                 <div class="sinlge-bar shopping">
-                                    <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
-                                    <!-- Shopping Item -->
-                                    <div class="shopping-item">
-                                        <div class="dropdown-cart-header">
-                                            <span>2 Items</span>
-                                            <a href="#">View Cart</a>
-                                        </div>
-                                        <ul class="shopping-list">
-                                            <li>
-                                                <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                                <h4><a href="#">Woman Ring</a></h4>
-                                                <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                                <h4><a href="#">Woman Necklace</a></h4>
-                                                <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom">
-                                            <div class="total">
-                                                <span>Total</span>
-                                                <span class="total-amount">$134.00</span>
-                                            </div>
-                                            <a href="checkout.html" class="btn animate">Checkout</a>
-                                        </div>
-                                    </div>
-                                    <!--/ End Shopping Item -->
+                                    <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">${count}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +234,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${requestScope.cart}" var = "item" >
+                                <c:forEach items="${cart}" var = "item" >
                                     <tr>
                                         <td class="image" data-title="No"><img src="https://th.bing.com/th/id/OIP.r1XiTgrz74owkRBP9l674QHaHa?pid=ImgDet&rs=1" alt="#"></td>
                                         <td class="product-des" data-title="Description">
@@ -300,30 +271,24 @@
                         <div class="total-amount">
                             <div class="row">
                                 <div class="col-lg-8 col-md-5 col-12">
-                                    <div class="left">
-                                        <div class="coupon">
-                                            <form action="#" target="_blank">
-                                                <input name="Coupon" placeholder="Enter Your Coupon">
-                                                <button class="btn">Apply</button>
-                                            </form>
+                                    <c:if test="${requestScope.qrCode != null}" >
+                                        <div class="left">
+                                            <img style="width: 350px;height: 350px;margin-left: 450px"  src="${requestScope.qrCode}">
                                         </div>
-                                        <div class="checkbox">
-                                            <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10$)</label>
-                                        </div>
-                                    </div>
+                                    </c:if>
                                 </div>
                                 <div class="col-lg-4 col-md-7 col-12">
                                     <div class="right">
                                         <ul>
-                                            <li>Cart Subtotal<span>$330.00</span></li>
+                                            <li>Cart Subtotal<span>${requestScope.totalPrice}$</span></li>
                                             <li>Shipping<span>Free</span></li>
-                                            <li>You Save<span>$20.00</span></li>
-                                            <li class="last">You Pay<span>$310.00</span></li>
+                                            <li class="last">You Pay<span>${requestScope.totalPrice}$</span></li>
                                         </ul>
                                         <div class="button5">
-                                            <a href="#" class="btn">Checkout</a>
-                                            <a href="#" class="btn">Continue shopping</a>
+                                            <a href="Checkout" class="btn">Checkout</a>
+                                            <a href="indexController" class="btn">Continue shopping</a>
                                         </div>
+                                            <samp>${requestScope.msg}<samp>
                                     </div>
                                 </div>
                             </div>
@@ -652,7 +617,7 @@
 
             function setButtonValue(button, value) {
                 // Đặt giá trị của nút được nhấp vào thành 1
-                
+
                 // Nếu đã có nút được chọn trước đó, đặt giá trị của nó thành null
                 if (selectedButton && selectedButton !== button) {
                     selectedButton.value = null;

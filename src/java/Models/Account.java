@@ -14,6 +14,15 @@ public class Account {
     public String password;
     public String role;
     public String email;
+    private String CustomerID;
+
+    public String getCustomerID() {
+        return CustomerID;
+    }
+
+    public void setCustomerID(String CustomerID) {
+        this.CustomerID = CustomerID;
+    }
 
     public Account() {
     }
@@ -65,4 +74,5 @@ public class Account {
     public void setEmail(String email) {
         this.email = email;
     }
+    
 }

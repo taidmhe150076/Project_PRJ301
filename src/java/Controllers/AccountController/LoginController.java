@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -36,7 +37,7 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
+            out.println("<title>Servlet Login</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
@@ -75,13 +76,19 @@ public class LoginController extends HttpServlet {
         String passWord = request.getParameter("Password");
         LoginDAO dao = new LoginDAO();
         Account account = dao.getByUsernamePassword(userName, passWord);
-        
-        if (account != null) {
-            request.getRequestDispatcher("index.html").forward(request, response);
-        }else{
-            response.sendRedirect("view/account/login.jsp");
-        }
+        HttpSession session = request.getSession(true);
+        session.setAttribute("login", account);
 
+        if (account != null) {
+            if (dao.isAdmin(account.userName, account.password, account.role)) {
+                session.setAttribute("loginAd", account);
+                response.sendRedirect("IndexAdmin");
+                return;
+            }
+            response.sendRedirect("indexController");
+        } else {
+            response.sendRedirect("Login");
+        }
     }
 
     /**

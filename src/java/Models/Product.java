@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.sql.Date;
+
 /**
  *
  * @author taisk
@@ -20,8 +22,16 @@ public class Product {
     private float reorderLevel;
     private boolean discontinued;
     private Category category;
-
+    private Date createAt;
     public Product() {
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     public Product(int productID, String productName, int supplierID, int categoryID, String quantityPerUnit, float unitPrice, float unitsInStock, float unitsOnOrder, float reorderLevel, boolean discontinued, Category category) {

@@ -62,7 +62,6 @@
                         <!-- Top Left -->
                         <div class="top-left">
                             <ul class="list-main">
-                                <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
                                 <li><i class="ti-email"></i> support@shophub.com</li>
                             </ul>
                         </div>
@@ -74,6 +73,7 @@
                             <ul class="list-main">
                                 <li><i class="ti-user"></i> <a href="#">My account</a></li>
                                 <li><i class="ti-power-off"></i><a href="Login">Login</a></li>
+                                <li><i class="ti-power-off"></i><a href="LogoutController">LogOut</a></li>
                             </ul>
                         </div>
                         <!-- End Top Right -->
@@ -110,9 +110,9 @@
                         <div class="search-bar-top">
                             <div class="search-bar">
                                 <select id="selectOption" onchange="redirectToController()">
-                                    <option selected="selected">All Category</option>
+                                    <option value="${null}">All Category</option>
                                     <c:forEach items="${requestScope.categories}" var = "item" >
-                                        <option value="${item.categoryID}">${item.categoryName}</option>
+                                        <option ${requestScope.pramCategoryId == item.categoryID ? "selected" : null} value="${item.categoryID}">${item.categoryName}</option>
                                     </c:forEach>
                                 </select>
                                 <form action="indexController" method="get">
@@ -132,36 +132,7 @@
                                 <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                             </div>
                             <div class="sinlge-bar shopping">
-                                <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">3</span></a>
-                                <!-- Shopping Item -->
-                                <div class="shopping-item">
-                                    <div class="dropdown-cart-header">
-                                        <span>2 Items</span>
-                                        <a href="Cart">View Cart</a>
-                                    </div>
-                                    <ul class="shopping-list">
-                                        <li>
-                                            <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                            <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                            <h4><a href="#">Woman Ring</a></h4>
-                                            <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                            <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                            <h4><a href="#">Woman Necklace</a></h4>
-                                            <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                        </li>
-                                    </ul>
-                                    <div class="bottom">
-                                        <div class="total">
-                                            <span>Total</span>
-                                            <span class="total-amount">$134.00</span>
-                                        </div>
-                                        <a href="checkout.html" class="btn animate">Checkout</a>
-                                    </div>
-                                </div>
-                                <!--/ End Shopping Item -->
+                                <a href="Cart" class="single-icon"><i class="ti-bag"></i> <span class="total-count">${sessionScope.count}</span></a>
                             </div>
                         </div>
                     </div>
@@ -180,23 +151,8 @@
                                     <div class="navbar-collapse">	
                                         <div class="nav-inner">	
                                             <ul class="nav main-menu menu navbar-nav">
-                                                <li class="active"><a href="#">Home</a></li>
-                                                <li><a href="#">Product</a></li>												
-                                                <li><a href="#">Service</a></li>
-                                                <li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="shop-grid.html">Shop Grid</a></li>
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Pages</a></li>									
-                                                <li><a href="#">Blog<i class="ti-angle-down"></i></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="blog-single-sidebar.html">Blog Single Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="contact.html">Contact Us</a></li>
+                                                <li class="active"><a href="indexController">Home</a></li>
+                                                <li><a href="orders">Orders</a></li>												
                                             </ul>
                                         </div>
                                     </div>
@@ -218,88 +174,63 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-12">
                     <div class="shop-sidebar">
-                        <!-- Single Widget -->
-                        <div class="single-widget category">
-                            <h3 class="title">Categories</h3>
-                            <c:forEach items="${requestScope.categories}" var = "item" >
-                                <ul class="categor-list">
-                                    <li><a href="#">${item.categoryName}</a></li>
-                                </ul>
-                            </c:forEach>
-                        </div>
-                        <!--/ End Single Widget -->
                         <!-- Shop By Price -->
                         <div class="single-widget range">
                             <h3 class="title">Shop by Price</h3>
                             <ul class="check-box-list">
-                                <li>
-                                    <label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
-                                </li>
-                                <li>
-                                    <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
-                                </li>
-                                <li>
-                                    <label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
-                                </li>
+                                <form action="searchByPrice" method="get">
+                                    <li>
+                                        <label class="checkbox-inline" for="1"> <input name="news" value="20-50" id="1" type="checkbox" onchange="this.form.submit()">$20 - $50<span class="count">(3)</span></label>
+                                    </li>
+                                    <li>
+                                        <label class="checkbox-inline" for="2"><input name="news" id="2" value="50-100" type="checkbox" onchange="this.form.submit()">$50 - $100<span class="count">(5)</span></label>
+                                    </li>
+                                    <li>
+                                        <label class="checkbox-inline" for="3"><input name="news" id="3" value="100-250" type="checkbox" onchange="this.form.submit()">$100 - $250<span class="count">(8)</span></label>
+                                    </li>
+                                </form>
+
                             </ul>
                         </div>
                         <!--/ End Shop By Price -->
                         <!-- Single Widget -->
                         <div class="single-widget recent-post">
-                            <h3 class="title">Recent post</h3>
+                            <h3 class="title">New Product</h3>
                             <!-- Single Post -->
-                            <div class="single-post first">
-                                <div class="image">
-                                    <img src="https://via.placeholder.com/75x75" alt="#">
-                                </div>
-                                <div class="content">
-                                    <h5><a href="#">Girls Dress</a></h5>
-                                    <p class="price">$99.50</p>
-                                    <ul class="reviews">
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li><i class="ti-star"></i></li>
-                                        <li><i class="ti-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <c:forEach items="${requestScope.listProductTop5}" var = "item">
+                                <div >
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="product-details.html">
+                                                <img class="default-img" src="${item.category.getImage()}" alt="#">
+                                                <img class="hover-img" src="${item.category.getImage()}" alt="#">
+                                            </a>
+                                            <div class="button-head">
+                                                <div class="product-action">
+                                                    <a title="Quick View" href="detailProduct?productid=${item.productID}"><i class="ti-eye"></i><span>Detail</span></a>
+                                                    <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                    <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+                                                </div>
+                                                <form method="post" action="Cart">
+                                                    <div class="product-action-2">
+                                                        <button type="submit" title="Add to cart" name="productid" value="${item.productID}">Add to cart</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3><a href="product-details.html">${item.productName}</a></h3>
+                                            <div class="product-price">
+                                                <span>${item.unitPrice}$</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </c:forEach>
                             <!-- End Single Post -->
                             <!-- Single Post -->
-                            <div class="single-post first">
-                                <div class="image">
-                                    <img src="https://via.placeholder.com/75x75" alt="#">
-                                </div>
-                                <div class="content">
-                                    <h5><a href="#">Women Clothings</a></h5>
-                                    <p class="price">$99.50</p>
-                                    <ul class="reviews">
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li><i class="ti-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
                             <!-- End Single Post -->
                             <!-- Single Post -->
-                            <div class="single-post first">
-                                <div class="image">
-                                    <img src="https://via.placeholder.com/75x75" alt="#">
-                                </div>
-                                <div class="content">
-                                    <h5><a href="#">Man Tshirt</a></h5>
-                                    <p class="price">$99.50</p>
-                                    <ul class="reviews">
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                        <li class="yellow"><i class="ti-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
                             <!-- End Single Post -->
                         </div>
                         <!--/ End Single Widget -->
@@ -312,29 +243,24 @@
                     <div class="row">
                         <div class="col-12">
                             <!-- Shop Top -->
-                            <div class="shop-top">
-                                <div class="shop-shorter">
-                                    <div class="single-shorter">
-                                        <label>Sort By :</label>
-                                        <select>
-                                            <option selected="selected">Name</option>
-                                            <option>Price</option>
-                                            <option>Size</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <!--/ End Shop Top -->
+                        </div>
+                        <div style="padding-right : 50px; font-size: large; margin-top: 10px;margin-left: 15px">
+                            <c:forEach var="i" begin="1" end="${requestScope.Count}">
+                                <a style="${requestScope.page == i ? "background-color: red; border:1px solid #000;padding-right : 10px; padding-left : 10px" : ""}"adding-right : 25px href="indexController?page=${i}">
+                                    ${i}
+                                </a>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="row" id="productList">
-                        <c:forEach items="${requestScope.products}" var = "item">
+                        <c:forEach items="${requestScope.listProductPage}" var = "item">
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="single-product">
                                     <div class="product-img">
                                         <a href="product-details.html">
-                                            <img class="default-img" src="https://th.bing.com/th/id/OIP.r1XiTgrz74owkRBP9l674QHaHa?pid=ImgDet&rs=1" alt="#">
-                                            <img class="hover-img" src="https://th.bing.com/th/id/OIP.r1XiTgrz74owkRBP9l674QHaHa?pid=ImgDet&rs=1" alt="#">
+                                            <img class="default-img" src="${item.category.getImage()}" alt="#">
+                                            <img class="hover-img" src="${item.category.getImage()}" alt="#">
                                         </a>
                                         <div class="button-head">
                                             <div class="product-action">
@@ -342,11 +268,11 @@
                                                 <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                                 <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
                                             </div>
-                                                <form method="post" action="Cart">
-                                                    <div class="product-action-2">
-                                                        <button type="submit" title="Add to cart" name="productid" value="${item.productID}">Add to cart</a>
-                                                    </div>
-                                                </form>
+                                            <form method="post" action="Cart">
+                                                <div class="product-action-2">
+                                                    <button type="submit" title="Add to cart" name="productid" value="${item.productID}">Add to cart</a>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -359,6 +285,7 @@
                             </div> 
                         </c:forEach>
                     </div>
+
                     <div id="productDetails">
                         <!-- Thông tin chi tiết sản phẩm sẽ được hiển thị ở đây -->
                     </div>

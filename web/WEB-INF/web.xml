@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-   <welcome-file-list>
-        <welcome-file>indexController</welcome-file> <!-- URL pattern của servlet cụ thể -->
+    <welcome-file-list>
+        <welcome-file>indexController</welcome-file>
+        <!-- URL pattern của servlet cụ thể -->
     </welcome-file-list>
+    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>Common.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/IndexAdmin/*</url-pattern>
+        <url-pattern>/acceptPaid/*</url-pattern>
+        <url-pattern>/addProduct/*</url-pattern>
+        <url-pattern>/deleteProduct/*</url-pattern>
+        <url-pattern>/productIndex/*</url-pattern>
+        <url-pattern>/updateProduct/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.AccountController.LoginController</servlet-class>
@@ -27,6 +41,62 @@
         <servlet-name>UpdateCart</servlet-name>
         <servlet-class>Controllers.Home.Cart.UpdateCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>Controllers.AccountController.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IndexAdmin</servlet-name>
+        <servlet-class>Controllers.Admin.IndexAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>detailOrder</servlet-name>
+        <servlet-class>Controllers.Admin.detailOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>searchByPrice</servlet-name>
+        <servlet-class>Controllers.Home.searchByPrice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>Controllers.Home.Cart.Checkout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>acceptPaid</servlet-name>
+        <servlet-class>Controllers.Admin.acceptPaid</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productIndex</servlet-name>
+        <servlet-class>Controllers.Admin.productIndex</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateProduct</servlet-name>
+        <servlet-class>Controllers.Admin.updateProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteProduct</servlet-name>
+        <servlet-class>Controllers.Admin.deleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>detailPro</servlet-name>
+        <servlet-class>Controllers.Admin.detailPro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addProduct</servlet-name>
+        <servlet-class>Controllers.Admin.addProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>forgetPass</servlet-name>
+        <servlet-class>Controllers.AccountController.forgetPass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Test</servlet-name>
+        <servlet-class>Controllers.AccountController.Test</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>orders</servlet-name>
+        <servlet-class>Controllers.Home.orders</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -50,6 +120,62 @@
     <servlet-mapping>
         <servlet-name>UpdateCart</servlet-name>
         <url-pattern>/UpdateCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IndexAdmin</servlet-name>
+        <url-pattern>/IndexAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>detailOrder</servlet-name>
+        <url-pattern>/detailOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchByPrice</servlet-name>
+        <url-pattern>/searchByPrice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>acceptPaid</servlet-name>
+        <url-pattern>/acceptPaid</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productIndex</servlet-name>
+        <url-pattern>/productIndex</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateProduct</servlet-name>
+        <url-pattern>/updateProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteProduct</servlet-name>
+        <url-pattern>/deleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>detailPro</servlet-name>
+        <url-pattern>/detailPro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addProduct</servlet-name>
+        <url-pattern>/addProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>forgetPass</servlet-name>
+        <url-pattern>/forgetPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/Test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orders</servlet-name>
+        <url-pattern>/orders</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +42,7 @@ public class indexController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet indexController</title>");            
+            out.println("<title>Servlet indexController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet indexController at " + request.getContextPath() + "</h1>");
@@ -66,25 +67,47 @@ public class indexController extends HttpServlet {
         CategoryDAO categoryDao = new CategoryDAO();
         String pramCategoryId = request.getParameter("selectedOption");
         String searchName = request.getParameter("search");
+        String page = request.getParameter("page");
+        int pageSize = 30;
+        int Count = 0;
+
+        if (page == null) {
+            page = "1";
+        }
 
         ArrayList<Product> listProducts = null;
-        ArrayList<Category> categories = null;        
+        ArrayList<Product> listProductTop5 = null;
+        ArrayList<Category> categories = null;
+        List<Product> listProductPage = null;
         try {
-            if (pramCategoryId != null) {
+            if (pramCategoryId != null && pramCategoryId != "") {
                 listProducts = productDao.getProductByCategoryID(pramCategoryId);
-            }else if (searchName != null){
+            } else if (searchName != null) {
                 listProducts = productDao.getProductByName(searchName);
-            }
-            else{
+            } else {
                 listProducts = productDao.getAllProduct();
             }
+            int start = (Integer.parseInt(page) - 1) * pageSize;
+            int end = Math.min(start + pageSize, listProducts.size());
+
+            if ((listProducts.size() % pageSize) == 0) {
+                Count = listProducts.size() / pageSize;
+            } else {
+                Count = listProducts.size() / pageSize + 1;
+            }
             
+            listProductPage = listProducts.subList(start, end);
+            listProductTop5 = productDao.getProductTopNew();
             categories = categoryDao.getAllCategory();
         } catch (Exception ex) {
             Logger.getLogger(indexController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("products", listProducts);
+        request.setAttribute("Count", Count);
+        request.setAttribute("page", page);
+        request.setAttribute("listProductPage", listProductPage);
+        request.setAttribute("listProductTop5", listProductTop5);
         request.setAttribute("categories", categories);
+        request.setAttribute("pramCategoryId", pramCategoryId);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

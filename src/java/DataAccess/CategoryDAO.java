@@ -23,6 +23,7 @@ public class CategoryDAO extends DBContext {
             sql = "SELECT [CategoryID]\n"
                     + ",[CategoryName]\n"
                     + ",[Description]\n"
+                    + ",[Image]\n"
                     + "  FROM Categories";
             stm = connection.prepareStatement(sql);
             rs = stm.executeQuery();
@@ -30,6 +31,7 @@ public class CategoryDAO extends DBContext {
                 Category c = new Category();
                 c.setCategoryID(rs.getInt("CategoryID"));
                 c.setCategoryName(rs.getString("CategoryName"));
+                c.setImage(rs.getString("Image"));
                 categories.add(c);
             }
             if (categories != null) {

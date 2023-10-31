@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author taisk
@@ -12,6 +14,7 @@ public class CartItem {
     private int cartId;
     private int quantity;
     private Product product;
+    private float total;
 
     public CartItem() {
     }
@@ -45,6 +48,13 @@ public class CartItem {
     public void setProduct(Product product) {
         this.product = product;
     }
-    
+
+    public float getTotal(ArrayList<CartItem> cartItems) {
+        float price = 0;
+        for (CartItem cartItem : cartItems) {
+            price += cartItem.quantity * cartItem.product.getUnitPrice();
+        }
+        return price;
+    }
     
 }

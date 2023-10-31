@@ -14,19 +14,19 @@ public class Category {
     private int categoryID;
     private String categoryName;
     private String description;
-    
-    private ArrayList<Product> products;
+    private String image;
 
     public Category() {
     }
 
-    public Category(int categoryID, String categoryName, String description, ArrayList<Product> products) {
+    public Category(int categoryID, String categoryName, String description, String image) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.description = description;
-        this.products = products;
+        this.image = image;
     }
 
+    
     public int getCategoryID() {
         return categoryID;
     }
@@ -51,13 +51,12 @@ public class Category {
         this.description = description;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public String getImage() {
+        return image;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
+    public void setImage(String image) {
+        this.image = image;
     }
-    
     
 }

@@ -64,11 +64,16 @@ public class Cart extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("login") == null) {
-            response.sendRedirect("view/account/login.jsp");
+            response.sendRedirect("Login");
             return;
         }
         ArrayList<CartItem> carts = (ArrayList<CartItem>)session.getAttribute("cart");
+        float totalPrice = 0;
+        for (CartItem cartItem : carts) {
+            totalPrice += cartItem.getQuantity() * cartItem.getProduct().getUnitPrice();
+        }
         request.setAttribute("cart", carts);
+        request.setAttribute("totalPrice", totalPrice);
         request.getRequestDispatcher("view/cart/cartIndex.jsp").forward(request, response);
     }
 
@@ -84,31 +89,46 @@ public class Cart extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
+        if (session.getAttribute("login") == null) {
+            response.sendRedirect("Login");
+            return;
+        }
+ 
         ProductDAO productDAO = new ProductDAO();
         String productId = request.getParameter("productid");
         Product product = null;
         ArrayList<CartItem> carts = null;
         try {
             product = productDAO.getProductById(Integer.parseInt(productId));
-            if (session.getAttribute("cart")!= null) {
-                carts = (ArrayList<CartItem>)session.getAttribute("cart");
+            carts = (ArrayList<CartItem>)session.getAttribute("cart");
+            if (carts != null) {
+                
+                boolean isCarted = false;
                 for (CartItem cart : carts) {
                     if (cart.getProduct().getProductID() == product.getProductID()) {
                         cart.setQuantity(cart.getQuantity() + 1);
-                    }
-                    else{
-                        carts.add(new CartItem(cart.getCartId() + 1, 1, product));
+                        isCarted = true;
                     }
                 }
+                if (!isCarted) {
+                    CartItem item = new CartItem();
+                    item.setCartId(carts.size() + 1);
+                    item.setProduct(product);
+                    item.setQuantity(1);
+                    carts.add(item);
+                }
             }else{
+                
                 carts = new ArrayList<CartItem>();
-                carts.add(new CartItem(1, 1, product));
+                carts.add(new CartItem(carts.size() + 1, 1, product));
             }
             
         } catch (Exception ex) {
             Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }
+        int countCart = carts.size();
         session.setAttribute("cart", carts);
+        session.setAttribute("count", countCart);
         response.sendRedirect("indexController");
     }
 

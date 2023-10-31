@@ -20,7 +20,7 @@
                 </div>
                     <input type="submit" name="" value="Login">
             </form> 
-            <a href="#">Forget Password<br> </a>
+            <a href="forgetPass">Forget Password<br> </a>
             <a href="#">Sign-Up<br> </a>
         </div>
     </body>
