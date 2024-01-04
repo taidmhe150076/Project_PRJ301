@@ -3,20 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/DataAccess/OrdersDAO.java</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Models/Account.java</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/view/account/login.jsp</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Controllers/Home/indexController.java</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Controllers/Home/Cart/Cart.java</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/index.jsp</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/orderUser.jsp</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Controllers/Home/orders.java</file>
             <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/adminIndex.jsp</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Controllers/Admin/detailOrder.java</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Common/AuthorizationFilter.java</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/DataAccess/LoginDAO.java</file>
-            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Controllers/AccountController/LoginController.java</file>
+            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/view/cart/cartIndex.jsp</file>
+            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Controllers/Home/indexController.java</file>
+            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Controllers/Home/Product/detailProduct.java</file>
+            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/src/java/Common/GenQrCode.java</file>
+            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/orderUser.jsp</file>
+            <file>file:/C:/Users/taisk/OneDrive/Documents/NetBeansProjects/Project_PRJ301/web/detailOrder.jsp</file>
         </group>
     </open-files>
 </project-private>
